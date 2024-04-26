@@ -2,7 +2,7 @@
 from aiogram import Dispatcher, Bot
 from aiogram import types
 from aiogram.dispatcher import storage, FSMContext
-from aiogram.dispatcher.filters.builtin import Command
+from aiogram.dispatcher.filters.builtin import Command, Text
 
 from tgbot.services.db_pg_SQL.pg_SQL import Database
 
@@ -26,9 +26,15 @@ async def enter_add(message: types.Message, state: FSMContext):
     await state.finish()
     x = await db.select_all_info()
     print(f"БД: {x}")
-    await message.answer(f"БД: {x[2][1]}")
+    count = await db.count_info()
+    num = count-1
+    await message.answer(f"Вы дабавили: {x[num][1]}")
+
+async def del_tabl(message: types.Message):
+    await db.drop_info()
 
 def register_add_db(dp: Dispatcher):
-    dp.register_message_handler(bot_add, Command("add"))
-
+    # dp.register_message_handler(bot_add, Command("add"))
+    dp.register_message_handler(bot_add, Text(equals=["добавить заметку", "Пюрешка"]))
+    dp.register_message_handler(del_tabl, Text(equals=["удалить данные"]))
     dp.register_message_handler(enter_add, state="add")

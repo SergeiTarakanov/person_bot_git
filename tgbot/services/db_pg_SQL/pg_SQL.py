@@ -12,7 +12,7 @@ class Database:
         sql = """
         CREATE TABLE IF NOT EXISTS info (
         id SERIAL PRIMARY KEY,
-        full_info VARCHAR(255) NOT NULL
+        full_info VARCHAR(555) NOT NULL
         );
         """
         await self.execute(sql, execute=True)
@@ -46,8 +46,8 @@ class Database:
         sql, parameters = self.format_args(sql, parameters=kwargs)
         return await self.execute(sql, *parameters, fetchrow=True)
 
-    async def count_users(self):
-        sql = "SELECT COUNT(*) FROM users"
+    async def count_info(self):
+        sql = "SELECT COUNT(*) FROM info"
         return await self.execute(sql, fetchval=True)
 
     async def update_user_username(self, username, telegram_id):
@@ -57,8 +57,8 @@ class Database:
     async def delete_users(self):
         await self.execute("DELETE FROM users WHERE TRUE", execute=True)
 
-    async def drop_users(self):
-        await self.execute("DROP TABLE IF EXISTS users", execute=True)
+    async def drop_info(self):
+        await self.execute("DROP TABLE IF EXISTS info", execute=True)
 
     async def execute(self, command, *args,
                       fetch: bool = False,
