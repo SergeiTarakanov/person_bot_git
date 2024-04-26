@@ -32,6 +32,7 @@ async def enter_add(message: types.Message, state: FSMContext):
 
 async def del_tabl(message: types.Message):
     await db.drop_info()
+    await message.answer(f"данные удалены")
 
 def register_add_db(dp: Dispatcher):
     # dp.register_message_handler(bot_add, Command("add"))
