@@ -10,9 +10,10 @@ class Database:
 
     async def create_table_info(self):
         sql = """
-        CREATE TABLE IF NOT EXISTS info2 (
+        CREATE TABLE IF NOT EXISTS info (
         id SERIAL PRIMARY KEY,
-        full_info VARCHAR(655) NOT NULL
+        full_info VARCHAR(655) NOT NULL,
+        category VARCHAR(55)
         );
         """
         await self.execute(sql, execute=True)
@@ -29,16 +30,16 @@ class Database:
     #     sql ='INSERT INTO info VALUES (1, "Первый совет");'
     #     # sql = "INSERT INTO info full_info=$1 returning *"
     #     return await self.execute(sql, full_info, fetchrow=True)
-    async def add_info(self, full_info):
+    async def add_info(self, full_info, category):
         # sql ='INSERT INTO info VALUES (1, "Первый совет");'
-        sql = "INSERT INTO info2 (full_info) VALUES($1) returning *"
-        return await self.execute(sql, full_info, fetchrow=True)
+        sql = "INSERT INTO info (full_info, category) VALUES($1, $2) returning *"
+        return await self.execute(sql, full_info, category, fetchrow=True)
 
     # async def add_user(self, full_name, username, telegram_id):
     #     sql = "INSERT INTO users (full_name, username, telegram_id) VALUES($1, $2, $3) returning *"
     #     return await self.execute(sql, full_name, username, telegram_id, fetchrow=True)
     async def select_all_info(self):
-        sql = "SELECT * FROM info2"
+        sql = "SELECT * FROM info"
         return await self.execute(sql, fetch=True)
 
     async def select_user(self, **kwargs):
@@ -47,7 +48,7 @@ class Database:
         return await self.execute(sql, *parameters, fetchrow=True)
 
     async def count_info(self):
-        sql = "SELECT COUNT(*) FROM info2"
+        sql = "SELECT COUNT(*) FROM info"
         return await self.execute(sql, fetchval=True)
 
     async def update_user_username(self, username, telegram_id):
@@ -58,7 +59,7 @@ class Database:
         await self.execute("DELETE FROM users WHERE TRUE", execute=True)
 
     async def drop_info(self):
-        await self.execute("DROP TABLE IF EXISTS info2", execute=True)
+        await self.execute("DROP TABLE IF EXISTS info", execute=True)
 
     async def execute(self, command, *args,
                       fetch: bool = False,

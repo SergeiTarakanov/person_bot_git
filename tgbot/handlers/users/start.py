@@ -13,7 +13,7 @@ db = Database()
 
 
 async def bot_start(message: types.Message):
-    await message.answer("Выберите товар из меню ниже", reply_markup=menu)
+    await message.answer("Выберите действие", reply_markup=menu)
 
 # async def bot_start2(message: types.Message):
 #     await db.create_table_info()
