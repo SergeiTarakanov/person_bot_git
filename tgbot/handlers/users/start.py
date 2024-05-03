@@ -5,11 +5,11 @@ from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart, Command
 
 from tgbot.keyboards.menu import menu
-from tgbot.services.db_pg_SQL.pg_SQL import Database
+# from tgbot.services.db_pg_SQL.pg_SQL import Database
 
 bot = Bot(token="6288576941:AAFnfoLo4LR90wrTNePMt3dDnHsQ1aSM9Fo", parse_mode='HTML')
 dp = Dispatcher(bot, storage=storage)
-db = Database()
+# db = Database()
 
 
 async def bot_start(message: types.Message):
