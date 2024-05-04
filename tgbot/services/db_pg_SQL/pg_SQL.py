@@ -83,10 +83,17 @@ class Database:
     async def _transaction(self) -> AsyncIterator[asyncpg.Connection]:
         if self._pool is None:
             self._pool = await asyncpg.create_pool(
-                user='postgres',
+                # для запуска на ПК
+                # user='postgres',
+                # password='12345',
+                # host='127.0.0.1',
+                # database='test_db',
+
+                # для запуска на сервере
+                user='sergey_postgres',
                 password='12345',
                 host='127.0.0.1',
-                database='test_db',
+                database='sergey_postgres',
             )
         async with self._pool.acquire() as conn:  # type: asyncpg.Connection
             async with conn.transaction():
