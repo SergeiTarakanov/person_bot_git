@@ -45,10 +45,14 @@ def load_config(path: str = None):
             use_redis=env.bool("USE_REDIS"),
         ),
         db=DbConfig(
-            host=env.str('DB_HOST'),
-            password=env.str('DB_PASS'),
-            user=env.str('DB_USER'),
-            database=env.str('DB_NAME')
+            host='127.0.0.1',
+            # host=env.str('DB_HOST'),
+            # password=env.str('DB_PASS'),
+            password='12345',
+            # user=env.str('DB_USER'),
+            user='sergey_postgres',
+            database='sergey_postgres'
+            # database=env.str('DB_NAME')
         ),
         misc=Miscellaneous()
     )
