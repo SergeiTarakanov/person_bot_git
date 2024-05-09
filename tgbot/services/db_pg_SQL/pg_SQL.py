@@ -89,11 +89,17 @@ class Database:
                 # host='127.0.0.1',
                 # database='test_db',
 
-                # для запуска на сервере
-                user='sergey_postgres',
+                # # для запуска на сервере
+                # user='sergey_postgres',
+                # password='12345',
+                # host='127.0.0.1',
+                # database='sergey_postgres',
+
+                # для запуска на сервере с новым пользователем tester
+                user='tester',
                 password='12345',
                 host='127.0.0.1',
-                database='sergey_postgres',
+                database='tester',
             )
         async with self._pool.acquire() as conn:  # type: asyncpg.Connection
             async with conn.transaction():

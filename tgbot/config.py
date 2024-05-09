@@ -50,8 +50,8 @@ def load_config(path: str = None):
             # password=env.str('DB_PASS'),
             password='12345',
             # user=env.str('DB_USER'),
-            user='sergey_postgres',
-            database='sergey_postgres'
+            user='tester',
+            database='tester'
             # database=env.str('DB_NAME')
         ),
         misc=Miscellaneous()
