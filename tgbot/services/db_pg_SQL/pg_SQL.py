@@ -98,7 +98,8 @@ class Database:
                 # для запуска на сервере с новым пользователем tester
                 user='tester',
                 password='12345',
-                host='127.0.0.1',
+                host='localhost',
+                port='5432',
                 database='tester',
             )
         async with self._pool.acquire() as conn:  # type: asyncpg.Connection
