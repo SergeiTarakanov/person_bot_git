@@ -1,14 +1,16 @@
 import contextlib
 from typing import Optional, AsyncIterator
-
+import logging
 import asyncpg
 
+logger = logging.getLogger(__name__)
 class Database:
 
     def __init__(self):
         self._pool: Optional[asyncpg.Pool] = None
 
     async def create_table_info(self):
+        logger.info("CREATE TABLE")
         sql = """
         CREATE TABLE IF NOT EXISTS info (
         id SERIAL PRIMARY KEY,
@@ -81,6 +83,7 @@ class Database:
     # Это можно просто скопировать для корректной работы с соединениями
     @contextlib.asynccontextmanager
     async def _transaction(self) -> AsyncIterator[asyncpg.Connection]:
+        logger.info("_transaction")
         if self._pool is None:
             self._pool = await asyncpg.create_pool(
                 # для запуска на ПК
@@ -95,13 +98,21 @@ class Database:
                 # host='127.0.0.1',
                 # database='sergey_postgres',
 
-                # для запуска на сервере с новым пользователем tester
-                user='tester',
-                password='12345',
+                # # для запуска на сервере с новым пользователем tester2
+                # user='tester2',
+                # password='12345',
+                # host='localhost',
+                # port='5432',
+                # database='tester2',
+
+                # для запуска на сервере с новым пользователем postgres
+                user='postgres',
+                password='',
                 host='localhost',
                 port='5432',
-                database='tester',
+                database='tester2',
             )
+        logger.info("_transaction2")
         async with self._pool.acquire() as conn:  # type: asyncpg.Connection
             async with conn.transaction():
                 yield conn
