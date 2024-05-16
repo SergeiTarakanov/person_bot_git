@@ -25,8 +25,8 @@ async def enter_add(message: types.Message, state: FSMContext):
     logger.info("enter_add 1")
     await db.create_table_info()
     logger.info("enter_add 2")
-    # global info
-    # info = message.text
+    global info
+    info = message.text
     await message.answer(f"в каую категорию добавить?",
                          reply_markup=category_keyboard)
 
@@ -34,7 +34,7 @@ async def enter_add(message: types.Message, state: FSMContext):
 
 async def confirm_post(call: CallbackQuery, callback_data:dict, state: FSMContext):
     print(f"заходим в CallbackQuery! ")
-    info ='пока обычный текст'
+    # info ='пока обычный текст'
     # убираем часики с инлайн кнопки
     await call.answer()
     info2 = callback_data.get("categ")

@@ -18,6 +18,7 @@ class Database:
         category VARCHAR(55)
         );
         """
+        logger.info("CREATE TABLE2")
         await self.execute(sql, execute=True)
 
     @staticmethod
