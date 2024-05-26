@@ -99,19 +99,19 @@ class Database:
                 # host='127.0.0.1',
                 # database='sergey_postgres',
 
-                # # для запуска на сервере с новым пользователем tester2
-                # user='tester2',
-                # password='12345',
+                # для запуска на сервере с новым пользователем tester2
+                user='gino',
+                password='Vlad1234',
+                host='localhost',
+                port='5432',
+                database='gino',
+
+                # для запуска на сервере с новым пользователем postgres
+                # user='postgres',
+                # password='',
                 # host='localhost',
                 # port='5432',
                 # database='tester2',
-
-                # для запуска на сервере с новым пользователем postgres
-                user='postgres',
-                password='',
-                host='localhost',
-                port='5432',
-                database='tester2',
             )
         logger.info("_transaction2")
         async with self._pool.acquire() as conn:  # type: asyncpg.Connection
